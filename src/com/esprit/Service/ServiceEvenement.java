@@ -28,7 +28,7 @@ public class ServiceEvenement implements IService<Evenement>{
 
     @Override
     public void ajouter(Evenement t) throws SQLException {
-        Date d1 = new Date();
+        //Date d1 = new Date();
         String requete = "INSERT INTO `evenement` (`lieu`, `nom`, `prix`, `nb_places`,`date_event`) VALUES (?,?,?,?,?)";
            
         if (t.getNom() != null) {
@@ -76,6 +76,7 @@ public class ServiceEvenement implements IService<Evenement>{
 
     @Override
     public boolean update(Evenement t) throws SQLException {
+        
         String requete = "update evenement set lieu=?, nom=?, prix=?, nb_places=?, date_event=? where id_event=?";
          if (t.getId_event()!= 0) {
                 PreparedStatement pst = con.prepareStatement(requete);
@@ -87,11 +88,59 @@ public class ServiceEvenement implements IService<Evenement>{
                 pst.setInt(6, t.getId_event());
                 
 
-               pst.executeUpdate();
+              pst.executeUpdate();
                
 
             }
          return true;
+    }
+    
+       public String listEvenement(){
+        String mail="";
+        try {
+            
+            String requete2 = "SELECT * FROM evenement";
+            PreparedStatement pst = con.prepareStatement(requete2);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                mail +="\n----------\n";
+                Evenement a = new Evenement();
+                a.setId_event(rs.getInt(1));
+                a.setLieu(rs.getString(2));
+                a.setNom(rs.getString(3));
+                a.setPrix(rs.getFloat(4));
+                a.setBn_places(rs.getInt(5));
+                a.setDate_Event(rs.getString(6));
+                
+                mail +="L'evenement:";
+                mail +="\n  Lieu = " + a.getLieu();
+                mail +="\n  Nom = " + a.getNom();
+                mail +="\n  Prix = " + a.getPrix();
+                mail +="\n  Nombre de places = " + a.getBn_places();
+                mail +="\n  Date = " + a.getDate_Event();
+                
+                /*
+                mail +="\n  Les enfants qui vont participer sont : ";
+                List<Enfant> KidList = IdEnfants();
+                for (Enfant en : KidList) {
+                    if (idList.contains(en.getIdEnfant())) {
+                        mail +="\n      l'enfant " + en.getIdEnfant() + " " + en.getNom() + " " + en.getPrenom();
+                    }
+                }
+                List<Animateur> animList = IdAnimateurs();
+                mail +="\n  Les animateurs sont : ";
+                for (Animateur an : animList) {
+                    if (idList1.contains(an.getAnimID())) {
+                        mail +="\n      l'animateur " + an.getAnimID() + " " + an.getNom() + " " + an.getPrenom();
+                    }
+                }*/
+                
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return mail;
     }
 
     @Override
@@ -115,11 +164,11 @@ public class ServiceEvenement implements IService<Evenement>{
             }
             return evenements;
     }
-     public void chercher(String besoin, String caractere){
+     public ArrayList<Evenement> chercher(String besoin, String caractere){
          
          ArrayList<Evenement> evenements = new ArrayList<>();
         String requete = "select * from evenement where " + besoin + " LIKE '" + caractere + "%'";
-        
+        /*
         
         try {
             Statement st = con.createStatement();
@@ -135,7 +184,30 @@ public class ServiceEvenement implements IService<Evenement>{
             }
         } catch (Exception ex) {
             Logger.getLogger(ServiceEvenement.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        
+         try {
+            PreparedStatement pst2 = con.prepareStatement(requete);
+            pst2.executeQuery();
+            System.out.println("recherche done");
+
+            ResultSet rs = pst2.executeQuery();
+
+            while (rs.next()) {
+                Evenement a = new Evenement();
+                a.setId_event(rs.getInt(1));
+                a.setLieu(rs.getString(2));
+                a.setNom(rs.getString(3));
+                a.setPrix(rs.getFloat(4));
+                a.setBn_places(rs.getInt(5));
+                a.setDate_Event(rs.getString(6));
+                
+                evenements.add(a);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
+        return evenements;
     }
      public Evenement getEvenement(int id_event) {
         Evenement evenement = null;
@@ -158,6 +230,69 @@ public class ServiceEvenement implements IService<Evenement>{
         }
         return evenement;
     }
+     
+       public Evenement getEvenement2(int id_insc) {
+        Evenement evenement = null;
+        try {
+            PreparedStatement pstm = con.prepareStatement("select * from evenement where id_insc = ?");
+            pstm.setInt(1, id_insc);
+            ResultSet rs = pstm.executeQuery();
+             
+            while(rs.next()){
+                evenement = new Evenement();
+                //evenement.setId_event(rs.getInt(1));
+               // evenement.setLieu(rs.getString(2));
+             evenement.setNom(rs.getString(3));
+                //evenement.setPrix(rs.getFloat(4));
+                //evenement.setBn_places(rs.getInt(5));
+                //evenement.setDate_Event(rs.getString(6));
+                
+            }
+        } catch (Exception e) {
+            
+        }
+         
+        return evenement;
+    }
+       
+       public int getIdEvenement(String nom){
+        
+         int i = 0;
+        try {
+            PreparedStatement pstm = con.prepareStatement("select * from evenement where nom = ?");
+            pstm.setString(1, nom);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){ 
+                i=rs.getInt(1);
+                
+            }
+        } catch (Exception e) {
+            
+        }
+        return i;
+       }
+       
+         public Float getPrixEvenement(String nom){
+        
+         Float k = null;
+        try {
+            PreparedStatement pstm = con.prepareStatement("select * from evenement where nom = ?");
+            pstm.setString(1, nom);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){ 
+                k=rs.getFloat(4);
+                
+            }
+        } catch (Exception e) {
+            
+        }
+         return k ;
+        
+       }
+       
+       
+     
+     
         public void trierEvenement(String o) {
         try {
 

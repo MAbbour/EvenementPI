@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parent {
-    private String id_parent;
+    private int id_parent;
     private String nom;
     private String prenom;
     private String mail;
@@ -31,7 +31,7 @@ public class Parent {
         this.mdp = mdp;
     }
 
-    public Parent(String id_parent, String nom, String prenom, String mail, int tel, int nb_enfant, String mdp) {
+    public Parent(int id_parent, String nom, String prenom, String mail, int tel, int nb_enfant, String mdp) {
         listenf = new ArrayList<>();
         listEve = new ArrayList<>();
         this.id_parent = id_parent;
@@ -43,11 +43,11 @@ public class Parent {
         this.mdp = mdp;
     }
 
-    public String getId_parent() {
+    public int getId_parent() {
         return id_parent;
     }
 
-    public void setId_parent(String id_parent) {
+    public void setId_parent(int id_parent) {
         this.id_parent = id_parent;
     }
 

@@ -5,6 +5,9 @@
  */
 package com.esprit.Entite;
 
+import com.esprit.Service.ServiceEnfant;
+import com.esprit.Service.ServiceEvenement;
+
 /**
  *
  * @author Acer
@@ -14,9 +17,104 @@ public class Inscription_evenement {
     private float prix;
     private int Id_enfant;
     private int Id_event;
-
+    private String date_insc;
+    private String nom_enfant;
+    private String nom_evenemment;
+    
     public Inscription_evenement() {
     }
+
+    public Inscription_evenement(int id_insc, float prix, String date_insc, String nom_enfant, String nom_evenemment) {
+        this.id_insc = id_insc;
+        this.prix = prix;
+        this.date_insc = date_insc;
+        this.nom_enfant = nom_enfant;
+        this.nom_evenemment = nom_evenemment;
+    }
+
+    public Inscription_evenement(float prix, int Id_enfant, int Id_event, String date_insc, String nom_enfant, String nom_evenemment) {
+        this.prix = prix;
+        this.Id_enfant = Id_enfant;
+        this.Id_event = Id_event;
+        this.date_insc = date_insc;
+        this.nom_enfant = nom_enfant;
+        this.nom_evenemment = nom_evenemment;
+    }
+    
+    
+
+    public Inscription_evenement(int id_insc, float prix, int Id_enfant, int Id_event,String date_insc, String nom_enfant, String nom_evenemment) {
+        this.id_insc = id_insc;
+        this.prix = prix;
+        this.Id_enfant = Id_enfant;
+        this.Id_event = Id_event;
+        this.date_insc = date_insc;
+        
+        ServiceEnfant serv = new ServiceEnfant();
+        String nom = serv.getEnfant(Id_enfant).getNom()+" "+serv.getEnfant(Id_enfant).getPrenom();
+        this.nom_enfant = nom;
+        
+        
+        ServiceEvenement seven = new ServiceEvenement();
+        String nomev = seven.getEvenement(Id_event).getNom();
+        this.nom_evenemment = nomev;
+    }
+
+    public Inscription_evenement(int id_insc, float prix, int Id_enfant, int Id_event, String date_insc) {
+        this.id_insc = id_insc;
+        this.prix = prix;
+        this.Id_enfant = Id_enfant;
+        this.Id_event = Id_event;
+        this.date_insc = date_insc;
+        ServiceEnfant serv = new ServiceEnfant();
+        String nom = serv.getEnfant(Id_enfant).getNom()+" "+serv.getEnfant(Id_enfant).getPrenom();
+        this.nom_enfant = nom;
+        
+        
+        ServiceEvenement seven = new ServiceEvenement();
+        String nomev = seven.getEvenement(Id_event).getNom();
+        this.nom_evenemment = nomev;
+    }
+
+    public Inscription_evenement(float prix, int Id_enfant, int Id_event, String date_insc) {
+        this.prix = prix;
+        this.Id_enfant = Id_enfant;
+        this.Id_event = Id_event;
+        this.date_insc = date_insc;
+    }
+
+   
+    
+    
+
+    public String getDate_insc() {
+        return date_insc;
+    }
+
+    public void setDate_insc(String date_insc) {
+        this.date_insc = date_insc;
+    }
+    
+    
+    
+
+    public String getNom_enfant() {
+        return nom_enfant;
+    }
+
+    public void setNom_enfant(String nom_enfant) {
+        this.nom_enfant = nom_enfant;
+    }
+
+    public String getNom_evenemment() {
+        return nom_evenemment;
+    }
+
+    public void setNom_evenemment(String nom_evenemment) {
+        this.nom_evenemment = nom_evenemment;
+    }
+    
+    
 
     public Inscription_evenement(int id_insc, float prix) {
         this.id_insc = id_insc;
@@ -72,8 +170,12 @@ public class Inscription_evenement {
 
     @Override
     public String toString() {
-        return "Inscription_evenement{" + "id_insc=" + id_insc + ", prix=" + prix + ", Id_enfant=" + Id_enfant + ", Id_event=" + Id_event + '}';
+        return "Inscription_evenement{" + "id_insc=" + id_insc + ", prix=" + prix + ", Id_enfant=" + Id_enfant + ", Id_event=" + Id_event + ", date_insc=" + date_insc + ", nom_enfant=" + nom_enfant + ", nom_evenemment=" + nom_evenemment + '}';
     }
+
+      
+
+    
 
     @Override
     public int hashCode() {

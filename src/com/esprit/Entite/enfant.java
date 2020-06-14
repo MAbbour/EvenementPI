@@ -10,17 +10,69 @@ package com.esprit.Entite;
  * @author User
  */
 public class enfant {
-    private String id_enfant;
+    private int id_enfant;
     private String nom;
     private String prenom;
     private String date_naissance;
     private String adresse;
     private int age;
+    private int id_parent;
+    private int id_insc;
     Parent parent;
 
     public enfant() {
     }
 
+    public enfant(int id_enfant, String nom, String prenom, String date_naissance, String adresse, int age, int id_parent, int id_insc) {
+        this.id_enfant = id_enfant;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.date_naissance = date_naissance;
+        this.adresse = adresse;
+        this.age = age;
+        this.id_parent = id_parent;
+        this.id_insc = id_insc;
+    }
+    
+
+    public enfant(int id_enfant, String nom, String prenom, String date_naissance, String adresse, int age, int id_parent) {
+        this.id_enfant = id_enfant;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.date_naissance = date_naissance;
+        this.adresse = adresse;
+        this.age = age;
+        this.id_parent = id_parent;
+    }
+    
+    
+
+    public enfant(int id_enfant, String nom, String prenom, String date_naissance, int id_parent) {
+        this.id_enfant = id_enfant;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.date_naissance = date_naissance;
+        this.id_parent = id_parent;
+    }
+
+    public int getId_parent() {
+        return id_parent;
+    }
+
+    public void setId_parent(int id_parent) {
+        this.id_parent = id_parent;
+    }
+
+    public enfant(String nom, String prenom, String date_naissance, String adresse, int age, int id_parent) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.date_naissance = date_naissance;
+        this.adresse = adresse;
+        this.age = age;
+        this.id_parent = id_parent;
+    }
+
+    
     public enfant(String nom, String prenom, String date_naissance, String adresse, int age, Parent parent) {
         this.nom = nom;
         this.prenom = prenom;
@@ -29,6 +81,14 @@ public class enfant {
         this.age = age;
         this.parent= parent;
     }
+
+    public enfant(int id_enfant, String nom, String prenom, String date_naissance) {
+        this.id_enfant = id_enfant;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.date_naissance = date_naissance;
+    }
+    
 
     public enfant(String nom, String prenom, String date_naissance, String adresse, int age) {
         this.nom = nom;
@@ -39,7 +99,7 @@ public class enfant {
     }
   
 
-    public enfant(String id_enfant, String nom, String prenom, String date_naissance, String adresse, int age, Parent parent) {
+    public enfant(int id_enfant, String nom, String prenom, String date_naissance, String adresse, int age, Parent parent) {
         this.id_enfant = id_enfant;
         this.nom = nom;
         this.prenom = prenom;
@@ -49,11 +109,22 @@ public class enfant {
         this.parent= parent;
     }
 
-    public String getId_enfant() {
+    public int getId_insc() {
+        return id_insc;
+    }
+
+    public void setId_insc(int id_insc) {
+        this.id_insc = id_insc;
+    }
+    
+    
+    
+
+    public int getId_enfant() {
         return id_enfant;
     }
 
-    public void setId_enfant(String id_enfant) {
+    public void setId_enfant(int id_enfant) {
         this.id_enfant = id_enfant;
     }
 
@@ -97,7 +168,7 @@ public class enfant {
         this.age = age;
     }
     
-    public Object getParent() {
+    public Parent getParent() {
         return parent;
     }
     public void setParent(Parent p){
